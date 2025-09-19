@@ -1,13 +1,6 @@
 // server/controllers/conciertosController.js
 const Concierto = require('../models/Concierto');
 
-/**
- * Construye un filtro para búsquedas y filtros por query params.
- * Soporta:
- *  - q: búsqueda en titulo, artista o lugar (regex, case-insensitive)
- *  - genero
- *  - minPrecio, maxPrecio
- */
 function buildFilter(query) {
   const filter = {};
 

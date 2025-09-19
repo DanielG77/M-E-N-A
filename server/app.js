@@ -7,21 +7,19 @@ const conciertosRoutes = require('./routes/conciertos');
 const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
-const PORT = process.env.PORT || 8080;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/conciertosdb';
+const PORT = process.env.PORT;
+const MONGO_URI = process.env.MONGO_URI;
 
-// Middlewares de seguridad
 app.use(
   helmet({
-    contentSecurityPolicy: false,       // Desactiva CSP para API JSON
-    crossOriginEmbedderPolicy: false    // Opcional, evita conflictos con frontend
+    contentSecurityPolicy: false,
+    crossOriginEmbedderPolicy: false 
   })
 );
 
 // Middleware para parsear JSON
 app.use(express.json());
 
-// Configuración de CORS
 const allowedOrigins = ['http://localhost:4200', 'http://localhost:3000'];
 app.use(
   cors({
