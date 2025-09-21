@@ -1,0 +1,178 @@
+// --- Variables (mantén consistencia con cards.component.scss) ---
+$accent-1: #5B21B6;
+$accent-2: #7C3AED;
+$deep-violet: #3a0c6a;
+$muted: #6b7280;
+$card-bg: #ffffff;
+$shadow: rgba(39, 8, 88, 0.06);
+$focus-ring: rgba(124,58,237, 0.22);
+$break-sm: 720px;
+
+// --- Header principal ---
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1.25rem;
+  background: $card-bg;
+  border-bottom: 1px solid rgba($deep-violet, 0.04);
+  box-shadow: 0 6px 16px $shadow;
+  transition: padding 180ms ease, box-shadow 180ms ease, background 180ms ease;
+  backdrop-filter: blur(6px); // suave efecto glass en navegadores que lo soportan
+
+  // estado reducido al hacer scroll (aplica agregando .header--scrolled)
+  &.header--scrolled {
+    padding: 0.35rem 1rem;
+    box-shadow: 0 10px 30px rgba(39,8,88,0.10);
+  }
+
+  // Left (logo / título)
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      line-height: 1;
+      color: $deep-violet;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      cursor: default;
+
+      // pequeño acento tipo badge junto al título (opcional)
+      &::after {
+        content: "";
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        margin-left: 10px;
+        border-radius: 50%;
+        background: linear-gradient(180deg, $accent-2, $accent-1);
+        vertical-align: middle;
+        box-shadow: 0 4px 12px rgba($accent-1, 0.14);
+        transform: translateY(-1px);
+        opacity: 0.98;
+      }
+    }
+  }
+
+  // Nav
+  .header-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+
+    a {
+      display: inline-block;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.95rem;
+      color: $deep-violet;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 600;
+      transition: background 140ms ease, transform 120ms ease, color 140ms ease;
+      position: relative;
+
+      &:hover {
+        transform: translateY(-2px);
+        background: rgba($accent-1, 0.06);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 0 4px $focus-ring;
+      }
+
+      // estilo para el enlace activo (routerLinkActive="active")
+      &.active {
+        color: #fff;
+        background: linear-gradient(90deg, $accent-1 0%, $accent-2 100%);
+        box-shadow: 0 8px 22px rgba($accent-1, 0.14);
+      }
+
+      // alternativa: subrayado degradado (si prefieres mantener fondo blanco)
+      &.underline-active {
+        color: $deep-violet;
+        &::after {
+          content: "";
+          position: absolute;
+          left: 10%;
+          right: 10%;
+          bottom: -6px;
+          height: 3px;
+          border-radius: 6px;
+          background: linear-gradient(90deg, $accent-1, $accent-2);
+          transform-origin: left center;
+        }
+      }
+    }
+  }
+
+  // layouts responsivos
+  @media (max-width: $break-sm) {
+    padding: 0.45rem 0.9rem;
+
+    .header-left h1 { font-size: 0.98rem; }
+
+    .header-nav {
+      // comprimimos el nav: ocultamos texto extra si hay muchas entradas
+      a {
+        padding: 0.4rem 0.55rem;
+        font-size: 0.9rem;
+      }
+    }
+  }
+
+  @media (max-width: 420px) {
+    // mobile: nav se vuelve fila oculta (si quieres añadir un botón hamburger)
+    padding: 0.4rem 0.75rem;
+    .header-nav {
+      gap: 0.4rem;
+      a { padding: 0.36rem 0.5rem; font-size: 0.88rem; }
+    }
+  }
+}
+
+/* --- Helpers opcionales que encajan con las cards --- */
+/* Usa .btn-ghost .btn-primary si reutilizas botones en el header */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.35rem 0.7rem;
+  border-radius: 8px;
+  font-weight: 700;
+  background: linear-gradient(90deg, $accent-1 0%, $accent-2 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 8px 22px rgba($accent-1, 0.12);
+  transition: transform 120ms ease, filter 120ms ease;
+
+  &:focus { box-shadow: 0 0 0 4px $focus-ring; }
+  &:hover { transform: translateY(-2px); }
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba($deep-violet, 0.06);
+  color: $deep-violet;
+  padding: 0.32rem 0.6rem;
+  border-radius: 8px;
+  font-weight: 700;
+
+  &:focus { box-shadow: 0 0 0 4px $focus-ring; }
+}
+
+/* --- Accesibilidad: reduce motion --- */
+@media (prefers-reduced-motion: reduce) {
+  .header-container, .header-container * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,42 @@
+<div class="card">
+  <h3>{{ model._id ? 'Editar Concierto' : 'Nuevo Concierto' }}</h3>
+  <div class="form-row">
+    <label>Titulo</label>
+    <input [(ngModel)]="model.titulo" />
+  </div>
+  <div class="form-row">
+  <label>Artista</label>
+  <input [(ngModel)]="model.artista" />
+</div>
+  <div class="form-row">
+    <label>Fecha</label>
+    <input type="datetime-local" [(ngModel)]="model.fecha" />
+  </div>
+  <div class="form-row">
+    <label>Lugar</label>
+    <input [(ngModel)]="model.lugar" />
+  </div>
+  <div class="form-row">
+    <label>Precio</label>
+    <input type="number" [(ngModel)]="model.precio" />
+  </div>
+  <div class="controls">
+    <button (click)="submit()">Guardar</button>
+    <button (click)="cancel()">Cancelar</button>
+  </div>
+  
+</div>
+  
+<!-- <div>
+  <label>Precio</label>
+  <input formControlName="precio" type="number" min="0" step="0.01" />
+  <div *ngIf="form.get('precio')?.touched && form.get('precio')?.invalid" class="error">
+    Precio >= 0.
+  </div>
+</div>
+
+<div class="actions">
+  <button type="submit">Guardar</button>
+  <button type="button" (click)="onCancel()">Cancelar</button>
+</div> -->
+

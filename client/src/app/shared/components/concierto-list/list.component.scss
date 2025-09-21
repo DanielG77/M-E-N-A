@@ -1,0 +1,31 @@
+// variables (mantén consistencia con los SCSS previos)
+$gap: 1rem;
+$pad: 0.75rem;
+$break-desktop-sm: 960px;
+$break-mobile: 560px;
+
+.concierto-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); // 3 columnas en desktop
+  gap: $gap;
+  align-items: start;
+  padding: $pad;
+
+  // forzar que el elemento <concierto-card> sea block para que ocupe la celda completa
+  > .concierto-card {
+    display: block;
+    width: 100%;
+  }
+
+  // tablet
+  @media (max-width: $break-desktop-sm) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  // mobile
+  @media (max-width: $break-mobile) {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+}

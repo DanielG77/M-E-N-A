@@ -1,0 +1,12 @@
+<div class="card">
+  <img [src]="concierto.imagenUrl" alt="{{concierto.titulo}}" class="card__img" />
+
+  <h3>{{concierto.titulo}}</h3>
+  <div>Fecha: {{concierto.fecha | date:'medium'}}</div>
+  <div>Lugar: {{concierto.lugar}}</div>
+  <div>Precio: €{{concierto.precio}}</div>
+  <div class="controls">
+    <button (click)="onEdit()">Editar</button>
+    <button (click)="onDelete()">Eliminar</button>
+  </div>
+</div>

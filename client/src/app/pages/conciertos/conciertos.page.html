@@ -1,0 +1,31 @@
+<!-- <section class="page">
+  <h1>Conciertos</h1> 
+  <concierto-carousel [conciertos]="conciertos"></concierto-carousel>
+
+
+  <div class="toolbar">
+    <button (click)="onNew()">Nuevo Concierto</button>
+    <button (click)="load()">Refrescar</button>
+  </div>
+
+  <div *ngIf="loading">Cargando...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+  <div *ngIf="showForm">
+    <concierto-form
+      [concierto]="editing"
+      (saved)="onSaved()"
+      (cancelled)="showForm = false">
+    </concierto-form>
+  </div>
+
+  <hr/>
+
+  <concierto-list
+    [conciertos]="conciertos"
+    (edit)="onEdit($event)"
+    (remove)="onDelete($event)">
+  </concierto-list>
+</section> -->
+  <concierto-carousel></concierto-carousel>
+  <concierto-list></concierto-list>

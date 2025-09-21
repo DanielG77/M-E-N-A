@@ -1,0 +1,31 @@
+<!-- Botón Nuevo Concierto -->
+<div class="actions">
+  <button (click)="onNew()" class="btn btn-primary">
+    Nuevo Concierto
+  </button>
+</div>
+
+<!-- Lista de conciertos -->
+<div *ngIf="conciertos?.length; else empty" class="concierto-list">
+  <concierto-card
+    *ngFor="let c of conciertos; trackBy: trackByConcierto"
+    [concierto]="c"
+    (edit)="onEdit(c)"
+    (delete)="onRemove(c._id!)">
+  </concierto-card>
+</div>
+
+<!-- Mensaje cuando no hay conciertos -->
+<ng-template #empty>
+  <p>No hay conciertos aún.</p>
+</ng-template>
+
+<!-- Opcional: Spinner de carga -->
+<div *ngIf="loading" class="loading">
+  Cargando conciertos...
+</div>
+
+<!-- Mensaje de error -->
+<div *ngIf="error" class="error">
+  {{ error }}
+</div>
