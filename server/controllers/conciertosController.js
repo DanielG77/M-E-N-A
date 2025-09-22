@@ -74,19 +74,27 @@ exports.crear = async (req, res, next) => {
 
 exports.actualizar = async (req, res, next) => {
   try {
-    const { slug, ...data } = req.body;
-    const concierto = await Concierto.findById(req.params.id);
+    const { slug: newSlug, ...data } = req.body;
+
+    const concierto = await Concierto.findOne({ slug: req.params.slug });
 
     if (!concierto) {
       return res.status(404).json({ success: false, message: 'Concierto no encontrado' });
     }
 
+    // Si el título cambia, resetear el slug
     if (data.titulo && data.titulo !== concierto.titulo) {
       concierto.slug = null;
     }
 
+    // Actualizar los campos
     for (let key in data) {
       concierto[key] = data[key];
+    }
+
+    // Actualizar el slug si se proporciona
+    if (newSlug) {
+      concierto.slug = newSlug;
     }
 
     const updated = await concierto.save();

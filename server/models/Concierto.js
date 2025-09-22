@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const slug = require('slug');
 const uniqueValidator = require('mongoose-unique-validator');
+const slug = require('slug').default; // PORQUE?
 
 const ConciertoSchema = new mongoose.Schema({
   titulo: { type: String, required: [true, 'El título es obligatorio'], trim: true },
@@ -12,28 +12,27 @@ const ConciertoSchema = new mongoose.Schema({
   genero: { type: String },
   descripcion: { type: String },
   imagenUrl: { type: String },
-
   slug: { type: String, lowercase: true, unique: true, index: true, trim: true }
 }, { timestamps: true });
 
 ConciertoSchema.plugin(uniqueValidator, { message: '{PATH} already taken' });
 
-async function slugify(doc) {
-  const base = slug((doc.titulo || 'concierto').toString(), { lower: true });
+async function generateSlug(doc) {
+  const base = slug(doc.titulo || 'concierto', { lower: true });
   let candidate = base;
   let i = 0;
 
-  while (await doc.constructor.exists({ slug: candidate })) {
-    i += 1;
+  while (await doc.constructor.exists({ slug: candidate })) { //En caso de que exista añadir un numero al slug
+    i++;
     candidate = `${base}-${i}`;
   }
   return candidate;
 }
 
-ConciertoSchema.pre('validate', async function(next) {
+ConciertoSchema.pre('validate', async function (next) {
   try {
     if (!this.slug || this.isModified('titulo')) {
-      this.slug = await slugify(this);
+      this.slug = await generateSlug(this);
     }
     next();
   } catch (err) {
