@@ -1,192 +1,144 @@
-// concierto-form.component.scss
-// Paleta y variables
-$accent-1: #5B21B6;     // violeta oscuro principal
-$accent-2: #7C3AED;     // violeta secundario (degradado)
-$deep-violet: #2d0a5f;  // para headings/textos fuertes
-$muted: #6b7280;        // texto secundario
-$card-bg: #ffffff;      // fondo tarjeta
-$border-alpha: rgba(45,10,95,0.06);
-$shadow: rgba(39,8,88,0.08);
-$focus-ring: rgba(124,58,237,0.18);
-$danger: #d33;
-$radius: 12px;
-$gap: 0.6rem;
-
-// Contenedor principal (la .card que muestras en el HTML)
-.card {
-  background: $card-bg;
-  border-radius: $radius;
-  padding: 1.0rem 1.25rem;
-  box-shadow: 0 12px 30px $shadow;
-  border: 1px solid $border-alpha;
-  width: 100%;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  gap: $gap;
-  color: #111827;
-
-  // heading
-  h3 {
-    margin: 0;
-    font-size: 1.05rem;
-    color: $deep-violet;
-    font-weight: 800;
-    letter-spacing: -0.2px;
-  }
-
-  // filas de formulario
-  .form-row {
+.concierto-form-container {
+  .header {
     display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    margin-bottom: 0;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e0e0e0;
+
+    h1 {
+      color: #333;
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .btn-back {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background: #545b62;
+      }
+    }
+  }
+}
+
+.concierto-form {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+  .form-group {
+    margin-bottom: 1.5rem;
 
     label {
-      font-size: 0.88rem;
-      color: $deep-violet;
-      font-weight: 700;
-      user-select: none;
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #333;
     }
 
-    input,
-    select,
-    textarea {
-      font-family: inherit;
-      font-size: 0.95rem;
-      padding: 0.55rem 0.75rem;
-      border-radius: 10px;
-      border: 1px solid rgba($deep-violet, 0.10);
-      background: #fff;
-      color: #0f172a;
-      min-height: 40px;
-      box-sizing: border-box;
-      transition: border-color 140ms ease, box-shadow 140ms ease, transform 140ms ease;
+    .form-control {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s;
 
-      &:focus,
-      &:focus-visible {
+      &:focus {
         outline: none;
-        border-color: $accent-1;
-        box-shadow: 0 0 0 6px $focus-ring;
+        border-color: #007bff;
       }
 
-      &::placeholder {
-        color: $muted;
+      &.error {
+        border-color: #dc3545;
       }
     }
 
-    textarea {
-      min-height: 96px;
+    textarea.form-control {
       resize: vertical;
-      padding-top: 0.6rem;
     }
 
-    // normalizar datetime-local en distintos navegadores
-    input[type="datetime-local"] {
-      padding-right: 0.6rem;
+    .error-message {
+      color: #dc3545;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
     }
   }
 
-  // Controls - botones
-  .controls {
+  .form-actions {
     display: flex;
-    gap: 0.6rem;
+    gap: 1rem;
     justify-content: flex-end;
-    margin-top: 0.25rem;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
 
-    button {
-      padding: 0.48rem 0.95rem;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
+    .btn {
+      padding: 0.75rem 1.5rem;
       border: none;
-      transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms ease;
-      min-width: 110px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.45rem;
-      background: transparent;
-      color: $deep-violet;
-    }
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
 
-    // botón principal Guardar
-    button:first-child,
-    .btn-primary {
-      color: #fff;
-      background: linear-gradient(90deg, $accent-1 0%, $accent-2 100%);
-      box-shadow: 0 10px 26px rgba(91,33,182,0.14);
-      border: 1px solid rgba(255,255,255,0.04);
+      &.btn-primary {
+        background: #007bff;
+        color: white;
 
-      &:hover { transform: translateY(-2px); filter: brightness(1.02); }
-      &:active { transform: translateY(0); }
-      &:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
+        &:hover:not(:disabled) {
+          background: #0056b3;
+        }
+
+        &:disabled {
+          background: #6c757d;
+          cursor: not-allowed;
+        }
+      }
+
+      &.btn-secondary {
+        background: #6c757d;
+        color: white;
+
+        &:hover {
+          background: #545b62;
+        }
       }
     }
+  }
+}
 
-    // botón secundario Cancelar (ghost)
-    button:last-child,
-    .btn-ghost {
-      background: transparent;
-      color: $deep-violet;
-      border: 1px solid rgba($deep-violet, 0.08);
-      font-weight: 700;
+// Responsive
+@media (max-width: 768px) {
+  .concierto-form-container {
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
 
-      &:hover { background: rgba($accent-1, 0.06); }
+      h1 {
+        font-size: 1.5rem;
+      }
     }
+  }
 
-    // mobile: apilar botones y ocupar todo el ancho
-    @media (max-width: 420px) {
-      flex-direction: column-reverse;
-      align-items: stretch;
+  .concierto-form {
+    padding: 1rem;
 
-      button {
+    .form-actions {
+      flex-direction: column;
+
+      .btn {
         width: 100%;
-        min-width: unset;
       }
     }
-  }
-
-  // mensajes de error / validación
-  .error {
-    color: $danger;
-    font-size: 0.85rem;
-    margin-top: 0.25rem;
-  }
-
-  .is-invalid {
-    border-color: $danger !important;
-    box-shadow: 0 0 0 6px rgba($danger, 0.08) !important;
-  }
-}
-
-/* eliminar flechas de number en Chrome/Firefox para estética */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type=number] { -moz-appearance: textfield; }
-
-/* accesibilidad: focus-visible preferible a :focus */
-:focus:not(:focus-visible) { outline: none; box-shadow: none; }
-
-/* reduce motion si el usuario lo solicita */
-@media (prefers-reduced-motion: reduce) {
-  .card, .card * { transition: none !important; animation: none !important; }
-}
-
-/* utilidades opcionales (si quieres agrupar campos en 2 columnas) */
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-
-  @media (max-width: 700px) {
-    grid-template-columns: 1fr;
   }
 }
