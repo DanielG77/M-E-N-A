@@ -1,4 +1,3 @@
-// server/controllers/conciertosController.js
 const Concierto = require('../models/Concierto');
 
 function buildFilter(query) {
@@ -49,15 +48,12 @@ exports.listar = async (req, res, next) => {
 
 exports.obtener = async (req, res, next) => {
   try {
-    const item = await Concierto.findById(req.params.id);
+    const item = await Concierto.findOne({ slug: req.params.slug });
     if (!item) {
       return res.status(404).json({ success: false, message: 'Concierto no encontrado' });
     }
     res.json({ success: true, data: item });
   } catch (err) {
-    if (err.name === 'CastError') {
-      return res.status(400).json({ success: false, message: 'ID inválido' });
-    }
     next(err);
   }
 };
@@ -78,40 +74,44 @@ exports.crear = async (req, res, next) => {
 
 exports.actualizar = async (req, res, next) => {
   try {
-    const updated = await Concierto.findByIdAndUpdate(
-      req.params.id,
-      req.body,
-      { new: true, runValidators: true }
-    );
+    const { slug, ...data } = req.body;
+    const concierto = await Concierto.findById(req.params.id);
 
-    if (!updated) {
+    if (!concierto) {
       return res.status(404).json({ success: false, message: 'Concierto no encontrado' });
     }
 
+    if (data.titulo && data.titulo !== concierto.titulo) {
+      concierto.slug = null;
+    }
+
+    for (let key in data) {
+      concierto[key] = data[key];
+    }
+
+    const updated = await concierto.save();
+
     res.json({ success: true, data: updated });
+
   } catch (err) {
     if (err.name === 'ValidationError') {
       const messages = Object.values(err.errors).map(e => e.message);
       return res.status(400).json({ success: false, errors: messages });
     }
-    if (err.name === 'CastError') {
-      return res.status(400).json({ success: false, message: 'ID inválido' });
-    }
     next(err);
   }
 };
 
+
+
 exports.borrar = async (req, res, next) => {
   try {
-    const deleted = await Concierto.findByIdAndDelete(req.params.id);
+    const deleted = await Concierto.findOneAndDelete({ slug: req.params.slug });
     if (!deleted) {
       return res.status(404).json({ success: false, message: 'Concierto no encontrado' });
     }
     res.json({ success: true, data: deleted });
   } catch (err) {
-    if (err.name === 'CastError') {
-      return res.status(400).json({ success: false, message: 'ID inválido' });
-    }
     next(err);
   }
 };

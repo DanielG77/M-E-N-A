@@ -1,13 +1,1 @@
-{"name":"conciertos-server",
-"version":"1.0.0",
-"main":"app.js",
-"scripts":{"start":"node app.js",
-"dev":"nodemon app.js",
-"seed":"node seed/seed.js"},
-"dependencies":{"cors":"^2.8.5",
-"dotenv":"^16.0.0",
-"express":"^4.18.2",
-"helmet":"^6.2.0",
-"mongoose":"^7.0.0",
-"sweetalert2":"^11.23.0"},
-"devDependencies":{"nodemon":"^2.0.22"}}
+{"name":"conciertos-server","version":"1.0.0","main":"app.js","scripts":{"start":"node app.js","dev":"nodemon app.js","seed":"node seed/seed.js"},"dependencies":{"@sindresorhus/slugify":"^3.0.0","cors":"^2.8.5","dotenv":"^16.0.0","express":"^4.18.2","helmet":"^6.2.0","mongoose":"^7.0.0","mongoose-unique-validator":"^4.0.1","slug":"^11.0.0","sweetalert2":"^11.23.0"},"devDependencies":{"nodemon":"^2.0.22"},"description":"","keywords":[],"author":"","license":"ISC"}

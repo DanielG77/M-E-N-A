@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const conciertosRoutes = require('./routes/conciertos');
 const errorHandler = require('./middlewares/errorHandler');
+const slug = require('slug'); // para CommonJS
 
 const app = express();
 const PORT = process.env.PORT;
